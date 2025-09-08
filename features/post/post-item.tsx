@@ -1,20 +1,26 @@
+import { Post } from "@/app/generated/prisma"
 import Link from "next/link"
 import React from "react"
 
-export default function PostItem() {
+export default function PostItem({ post }: { post: Post }) {
+  const createdAt: Date = new Date(post.createdAt)
+
   return (
-    <Link href="/" className="block">
-      <article className="w-full h-48 cursor-pointer">
-        <img
-          src="https://avatars.mds.yandex.net/i?id=5ebabe3146e55dd377743a2bef2fc792_l-10641531-images-thumbs&n=13"
-          alt="excerpt"
-          className="w-full h-32 object-cover"
-        />
-        <h2 className="text-xl font-bold line-clamp-2">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aliquam a
-          temporibus error, facilis saepe itaque amet dolore adipisci laborum
-          consectetur at eaque nemo minima, beatae commodi quasi non fuga ipsam.
-        </h2>
+    <Link href={`/posts/${post.slug}`} className="block">
+      <article className="w-full max-h-48 cursor-pointer">
+        {post.image && (
+          <img
+            src={post.image}
+            alt="Изображение поста"
+            className="w-full h-32 object-cover"
+          />
+        )}
+        <div className="flex justify-between items-center">
+          <h2 className="text-xl font-bold line-clamp-2">{post.title}</h2>
+          <time dateTime={createdAt.toISOString()}>
+            {createdAt.toLocaleDateString("ru-RU")}
+          </time>
+        </div>
       </article>
     </Link>
   )
