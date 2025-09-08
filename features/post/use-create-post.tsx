@@ -3,18 +3,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { api } from "@/shared/api"
 import { Post } from "./post"
 import { NewPostInput } from "./new-post-input"
-
-function generateSlug(title: string) {
-  let slug = title
-    .toLowerCase()
-    .trim()
-    .replace(/\s+/g, "-")
-    .replace(/[^\p{L}\p{N}-]+/gu, "")
-    .replace(/-+/g, "-")
-
-  if (!slug) slug = "post-" + Date.now() // если пустой, создаём уникальный
-  return slug
-}
+import { generateSlug } from "@/shared/generate-slug"
 
 export function useCreatePost() {
   const queryClient = useQueryClient()

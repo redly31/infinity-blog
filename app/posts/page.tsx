@@ -9,7 +9,7 @@ export default function PostsList() {
 
   if (isLoading) return <div>Загрузка...</div>
   if (isError) return <div>Ошибка: {error?.message}</div>
-  console.log(posts)
+
   return (
     <section className="flex flex-col gap-4">
       {posts?.map((post: Post) => (
