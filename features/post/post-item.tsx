@@ -1,6 +1,6 @@
-import { Post } from "@/app/generated/prisma"
 import Link from "next/link"
 import React from "react"
+import { Post } from "@/features/post/post"
 
 export default function PostItem({ post }: { post: Post }) {
   const createdAt: Date = new Date(post.createdAt)
