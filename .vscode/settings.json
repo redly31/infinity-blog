@@ -1,0 +1,23 @@
+{
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    ".next": true,
+    ".vscode": true,
+    "node_modules": true,
+    "eslint.config.mjs": true,
+    ".gitignore": true,
+    "next-env.d.ts": true,
+    "next.config.ts": true,
+    "pnpm-lock.yaml": true,
+    "postcss.config.mjs": true,
+    "README.md": true,
+    "app/generated": true
+  },
+  "explorerExclude.backup": {},
+  "editor.fontFamily": "Geist Mono",
+  "editor.fontSize": 13
+}
