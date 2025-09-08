@@ -1,20 +1,9 @@
-"use client"
-import { Post } from "@/features/post/post"
-import PostItem from "@/features/post/post-item"
-import { useGetPosts } from "@/features/post/use-get-posts"
-import React from "react"
+import PostsList from "@/features/post/ui/posts-list"
+import { prisma } from "@/shared/prisma"
 
-export default function PostsList() {
-  const { data: posts, isLoading, isError, error } = useGetPosts()
+export const revalidate = 60
 
-  if (isLoading) return <div>Загрузка...</div>
-  if (isError) return <div>Ошибка: {error?.message}</div>
-
-  return (
-    <section className="flex flex-col gap-4">
-      {posts?.map((post: Post) => (
-        <PostItem key={post.id} post={post} />
-      ))}
-    </section>
-  )
+export default async function PostsListPage() {
+  const posts = await prisma.post.findMany()
+  return <PostsList initialPosts={posts} />
 }

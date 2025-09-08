@@ -1,11 +1,11 @@
 import { prisma } from "@/shared/prisma"
 import ReactMarkdown from "react-markdown"
-import { Post } from "./post"
+import { Post } from "../model/post"
 
-export default async function PostDescription(params: { slug: string }) {
-  const slug = decodeURIComponent(params.slug)
+export default async function PostDescription({ slug }: { slug: string }) {
+  const decodeSlug = decodeURIComponent(slug)
   const post: Post | null = await prisma.post.findUnique({
-    where: { slug: slug },
+    where: { slug: decodeSlug },
   })
 
   if (!post) return <div>Пост не найден</div>

@@ -1,14 +1,13 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
-
 import { api } from "@/shared/api"
-import { Post } from "./post"
-import { NewPostInput } from "./new-post-input"
 import { generateSlug } from "@/shared/generate-slug"
+import { NewPostInput } from "../model/new-post-input"
+import { Post } from "../model/post"
 
-export function useCreatePost() {
+export default function CreatePostButton({ props }: { props: NewPostInput }) {
   const queryClient = useQueryClient()
 
-  return useMutation<Post, Error, NewPostInput>({
+  const mutation = useMutation<Post, Error, NewPostInput>({
     mutationFn: async (post: NewPostInput) => {
       const slug = generateSlug(post.title)
       const { data } = await api.post<Post>("/posts", {
@@ -24,4 +23,22 @@ export function useCreatePost() {
       queryClient.invalidateQueries({ queryKey: ["posts"] })
     },
   })
+
+  const handleCreateNewPost = () => {
+    mutation.mutate({
+      title: props.title,
+      content: props.content,
+      image: props.image || undefined,
+    })
+  }
+
+  return (
+    <button
+      onClick={() => handleCreateNewPost()}
+      type="submit"
+      className="bg-white text-black cursor-pointer px-8 py-2"
+    >
+      Создать пост
+    </button>
+  )
 }

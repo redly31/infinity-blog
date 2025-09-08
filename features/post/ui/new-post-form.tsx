@@ -1,20 +1,13 @@
 "use client"
-
-import { useCreatePost } from "@/features/post/use-create-post"
 import { useState } from "react"
+import CreatePostButton from "./create-post-button"
 
 export default function NewPostForm() {
   const [title, setTitle] = useState("")
   const [content, setContent] = useState("")
   const [image, setImage] = useState("")
-  const mutation = useCreatePost()
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    mutation.mutate({
-      title,
-      content,
-      image: image || undefined,
-    })
     setTitle("")
     setContent("")
     setImage("")
@@ -48,17 +41,7 @@ export default function NewPostForm() {
         placeholder="Ссылка на изображение (опционально)"
         className="border p-2 w-full outline-0"
       />
-      <button
-        type="submit"
-        className="bg-white text-black cursor-pointer px-8 py-2"
-        disabled={mutation.isPending}
-      >
-        {mutation.isPending ? "Создание..." : "Создать пост"}
-      </button>
-      {mutation.isError && (
-        <p className="">Ошибка: {mutation.error?.message}</p>
-      )}
-      {mutation.isSuccess && <p className="">Пост успешно создан!</p>}
+      <CreatePostButton props={{ title, content, image }} />
     </form>
   )
 }

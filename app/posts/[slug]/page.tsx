@@ -11,9 +11,9 @@ export async function generateStaticParams() {
 export const revalidate = 60
 
 import React from "react"
-import PostDescription from "@/features/post/post-description"
+import PostDescription from "@/features/post/ui/post-description"
 
-export default async function page(props: Props) {
-  const { params } = await props
-  return <PostDescription {...params} />
+export default async function Page({ params }: Props) {
+  const { slug } = await params
+  return <PostDescription slug={slug} />
 }
